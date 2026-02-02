@@ -1,4 +1,4 @@
-{
+  {
   "name": "nsc-events-expo-supabase",
   "version": "1.0.0",
   "main": "index.ts",
@@ -8,6 +8,7 @@
     "ios": "expo start --ios",
     "start:web": "expo start --web",
     "start:web:cache": "expo start --web -c",
+    "dev:web:mac": "(npx supabase status && npm run start:web) || (npm run db:start:mac && npm run start:web)",
     "db:start": "npx supabase start",
     "db:start:mac": "export DOCKER_DEFAULT_PLATFORM=linux/amd64 && npx supabase start",
     "db:start:debug": "npx supabase start --debug",
@@ -25,7 +26,7 @@
     "expo": "~51.0.21",
     "expo-constants": "~16.0.2",
     "expo-dev-client": "~4.0.29",
-    "expo-linking": "~6.3.1",
+   "expo-linking": "~6.3.1",
     "expo-router": "~3.5.18",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
