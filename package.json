@@ -1,0 +1,45 @@
+{
+  "name": "nsc-events-expo-supabase",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "start:web": "expo start --web",
+    "start:web:cache": "expo start --web -c",
+    "db:start": "npx supabase start",
+    "db:start:mac": "export DOCKER_DEFAULT_PLATFORM=linux/amd64 && npx supabase start",
+    "db:start:debug": "npx supabase start --debug",
+    "db:start:mac:debug": "export DOCKER_DEFAULT_PLATFORM=linux/amd64 && npx supabase start --debug",
+    "db:stop": "npx supabase stop",
+    "db:status": "npx supabase status",
+    "db:reset": "npx supabase db reset",
+    "db:delete:docker-container-volume": "echo 'Checking Supabase status...' && (docker ps -q --filter \"name=supabase_*_nsc-events-expo-supabase\" > /dev/null && echo 'Stopping running Supabase containers...' && supabase stop --no-backup || echo 'No running Supabase containers found') && echo 'Removing any existing Supabase containers...' && (docker ps -a -q --filter \"name=supabase_*_nsc-events-expo-supabase\" | xargs -r docker rm -f || echo 'No containers to remove') && echo 'Removing any existing Supabase volumes...' && (docker volume ls -q --filter \"label=com.supabase.cli.project=nsc-events-expo-supabase\" | xargs -r docker volume rm || echo 'No volumes to remove') && echo 'Container and Volume cleanup completed successfully'",
+    "db:delete:docker-images": "docker rmi -f $(docker images 'public.ecr.aws/supabase/*' -q)"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~3.2.3",
+    "@expo/vector-icons": "^14.0.3",
+    "@supabase/supabase-js": "2.91.0",
+    "expo": "~51.0.21",
+    "expo-constants": "~16.0.2",
+    "expo-dev-client": "~4.0.29",
+    "expo-linking": "~6.3.1",
+    "expo-router": "~3.5.18",
+    "expo-status-bar": "~1.12.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.74.5",
+    "react-native-safe-area-context": "4.10.5",
+    "react-native-screens": "3.31.1",
+    "react-native-url-polyfill": "^3.0.0",
+    "react-native-web": "~0.19.10"
+  },
+  "devDependencies": {
+    "@types/react": "~18.2.14",
+    "supabase": "^2.72.8",
+    "typescript": "~5.3.3"
+  },
+  "private": true
+}
