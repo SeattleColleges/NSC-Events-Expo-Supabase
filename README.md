@@ -28,10 +28,11 @@ This project is an event management application built with Expo (React Native) f
 
 # Workflows
 ## Project setup
-- Run terminal with `npm install . ` in the cloned project's directory.
+1. Run terminal with `npm install . ` in the cloned project's directory.
 1. In the terminal, run `npm run db:start` to spin up the local supabase terminal. 
+- Create your .env file using the values printed in the terminal after spinning up the local supabase instance.
 1. `npm run start:web` to start up the frontend development server.
-Note: Currently there are kinks needed to work out with the new backend scripts. Login and logout will not work for now...
+Note: Currently there are kinks needed to work out with the new backend scripts. Login and logout will not work for now... But components do work!
 
 # Resources
 - [Review before implementing components or pages: Introduction to Expo Router Layout Files](https://youtu.be/Yh6Qlg2CYwQ?si=c5Zy0PBnwWYwzOtV)
