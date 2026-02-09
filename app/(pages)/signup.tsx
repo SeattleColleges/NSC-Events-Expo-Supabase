@@ -1,51 +1,66 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Alert } from "react-native";
 import { useState, useEffect } from "react";
-import { supabase } from "../src/lib/supabase";
+import { supabase } from "../../src/lib/supabase";
 import { Link } from "expo-router";
-import { usePlatform } from "../src/context/PlatformContext";
+import { usePlatform } from "../../src/context/PlatformContext";
 
-export default function Login() {
+export default function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
     const platform = usePlatform();
 
     useEffect(() => {
-        setIsFormValid(email.length > 0 && password.length > 0);
-    }, [email, password]);
+        setIsFormValid(email.length > 0 && password.length > 0 && name.length > 2);
+    }, [email, password, name]);
 
-    const handleSignIn = async () => {
+    const handleSignUp = async () => {
         if (!isFormValid) return;
 
-        const { error, data } = await supabase.auth.signInWithPassword({
+        const { error, data } = await supabase.auth.signUp({
             email,
             password,
+            options: {
+                data: {
+                    name
+                }
+            }
         });
 
-         if (error) {
-                    if (platform === 'web') {
-                        window.alert(error.message);
-                    } else {
-                        Alert.alert('Error', error.message);
-                    }
-                } else {
-                    const successMessage = 'Login successful! User data: ' + JSON.stringify(data.user, null, 2);
-                    if (platform === 'web') {
-                        window.alert(successMessage);
-                    } else {
-                        Alert.alert('Success', successMessage);
-                    }
-                }
-    };
-
-    const goToForgotPassword = () => {
-        // Implement nav to forgot password page
+        if (error) {
+            if (platform === 'web') {
+                window.alert(error.message);
+            } else {
+                Alert.alert('Error', error.message);
+            }
+        } else {
+            const successMessage = 'Sign-up successful! User data: ' + JSON.stringify(data.user, null, 2);
+            if (platform === 'web') {
+                window.alert(successMessage);
+            } else {
+                Alert.alert('Success', successMessage);
+            }
+        }
     };
 
     return (
         <View style={styles.container}>
             {/* Title */}
-            <Text style={styles.title}>Login</Text>
+            <Text style={styles.title}>Sign Up</Text>
+
+            {/* Name Label and Input */}
+            <View style={styles.inputContainer}>
+                <Text style={styles.label}>Name</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="John Doe"
+                    placeholderTextColor="#888"
+                    value={name}
+                    onChangeText={setName}
+                    autoCapitalize="words"
+                />
+            </View>
 
             {/* Email Label and Input */}
             <View style={styles.inputContainer}>
@@ -57,7 +72,7 @@ export default function Login() {
                     value={email}
                     onChangeText={setEmail}
                     keyboardType="email-address"
-                    autoCapitalize="none" 
+                    autoCapitalize="none"
                 />
             </View>
 
@@ -74,22 +89,17 @@ export default function Login() {
                 />
             </View>
 
-            {/* Login Button */}
-            <TouchableOpacity style={[styles.loginButton, !isFormValid && styles.disabledButton]} onPress={handleSignIn} disabled={!isFormValid}>
-                <Text style={styles.loginButtonText}>Login</Text>
+            {/* Sign Up Button */}
+            <TouchableOpacity style={[styles.loginButton, !isFormValid && styles.disabledButton]} onPress={handleSignUp} disabled={!isFormValid}>
+                <Text style={styles.loginButtonText}>Sign Up</Text>
             </TouchableOpacity>
 
-            {/* Forgot Password Link */}
-            <TouchableOpacity onPress={goToForgotPassword}>
-                <Text style={styles.link}>Forgot Password?</Text>
-            </TouchableOpacity>
-
-            {/* Sign-Up Section */}
+            {/* Sign-In Section */}
             <View style={styles.signUpContainer}>
-                <Text style={styles.text}>Don't have an account? </Text>
-                <Link href="/signup" asChild>
+                <Text style={styles.text}>Already have an account? </Text>
+                <Link href="/login" asChild>
                     <TouchableOpacity>
-                        <Text style={styles.link}>Sign Up</Text>
+                        <Text style={styles.link}>Sign In</Text>
                     </TouchableOpacity>
                 </Link>
             </View>
