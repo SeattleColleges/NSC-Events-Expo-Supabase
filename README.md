@@ -31,6 +31,13 @@ This project is an event management application built with Expo (React Native) f
 - Run terminal with `npm install . ` in the cloned project's directory.
 1. In the terminal, run `npm run db:start` to spin up the local supabase terminal. 
 1. `npm run start:web` to start up the frontend development server.
+Note: Currently there are kinks needed to work out with the new backend scripts. Login and logout will not work for now...
 
+# Resources
+- [Review before implementing components or pages: Introduction to Expo Router Layout Files](https://youtu.be/Yh6Qlg2CYwQ?si=c5Zy0PBnwWYwzOtV)
+- [Figma Design](https://www.figma.com/design/nswMhBThzHDCqsR7F2HxbF/NSC-Dev-site-redesign-wireframes?node-id=73-1231&t=SbPUpY0Pq8fQwScA-1)
+- [React Native Component Library](https://reactnative.dev/docs/components-and-apis)
+- [CSS Reference](https://css-tricks.com/)
+- [Expo Router](https://docs.expo.dev/versions/latest/sdk/router/)
 
 This is a living document, so please feel free to add any useful tips or workflows
